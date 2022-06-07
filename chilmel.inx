@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+<_name>ChilMel Control</_name>
+<id>command.whatisloveam.chilmel</id>
+<dependency type="extension">org.inkscape.output.svg.inkscape</dependency>
+<dependency type="executable" location="extensions">chilmel.py</dependency>
+<dependency type="executable" location="extensions">inkex.py</dependency>
+<param name="mode" type="notebook">
+
+<page name="plot" _gui-text="Начертить">
+<_param indent="1" name="splashpage" type="description" appearance="header">
+Добро пожаловать в интерфейс СhilMel!
+</_param>
+<_param indent="2" name="splashpage2" type="description" xml:space="preserve" >
+Нажмите 'Применить' для начала черчения.
+
+Или посмотрите на другие вкладки для настройки параметров и
+использования расширенных функций.
+
+</_param>
+</page>
+
+<page name='setup' _gui-text='Ручка'>
+
+<_param name="instructions_setup" type="description" appearance="header">ChilMel: Базовая настройка ручки</_param>
+<param indent="1" name="penUpPosition" type="int" min="0" max="255" appearance="full" 
+_gui-text="Высота ручки: верх:">40</param>
+<param indent="1" name="penDownPosition" type="int" min="0" max="255" appearance="full"
+_gui-text="Высота ручки: низ:">0</param>
+
+
+<param name="setupType" type="optiongroup" _gui-text="Действие на 'Применить':">
+<_option value="align-mode">Поднять ручку</_option>	
+<_option value="toggle-pen">Поднять и опустить ручку</_option>
+</param>
+<_param indent="1" name="instructions_setup3" type="description" xml:space="preserve">
+- Поднять ручку, чтобы вручную
+переместите каретку в начальную позицию (вверху слева).
+
+- Поднять и опустить ручку, чтобы проверить вертикальное положение
+ручки для письма и рисования.
+
+</_param>
+</page>
+
+<page name='timing' _gui-text='Тайминги'>
+<_param name="instructions_timing1" type="description" appearance="header">Скорость движения:</_param>
+<_param indent="1" name="instructions_timing1" type="description"  >
+Установите скорость здесь, если вы хотите рисовать медленнее с опущенной ручкой. Скорости указаны в мм/мин. 
+Это полезно, если вы рисуете перьями, которые не могут подавать чернила выше
+определенной скорости: например, обычные гелевые ручки начинают терять текучесть примерно
+1000, а металлические ручки — 2000.
+</_param>
+<param indent="1" name="applySpeed" type="boolean" _gui-text="Применять ли скорость к ручке?">false</param>	
+<param indent="1" name="penDownSpeed" type="int" min="1" max="10000" _gui-text="Скорость рисования (mm/min):">1000</param>	
+<param indent="1" name="penUpSpeed" type="int" min="1" max="10000" _gui-text="Скорость перемещения (mm/min):">5000</param>
+
+<_param name="instructions_timing3" type="description" appearance="header">Скорость подъема и опускания ручки:</_param>
+<_param indent="1" name="instructions_timing3" type="description"  >
+Здесь можно точно настроить скорость — чем выше скорость, тем меньше времени вы тратите на ожидание движения.
+после поднятия или опускания ручки.
+</_param>
+<param indent="1" name="penLiftRate" type="int" min="20" max="1000" _gui-text="Скорость подъема (servo steps/s):">150</param>
+<param indent="1" name="penLiftDelay" type="int" min="-500" max="500" _gui-text="Задержка после подъема (ms):">0</param>
+<param indent="1" name="penLowerRate" type="int" min="20" max="1000" _gui-text="Скорость опускания (servo steps/s):">150</param>
+<param indent="1" name="penLowerDelay" type="int" min="-500" max="500" _gui-text="Задержка после опускания (ms):">0</param>
+
+<_param indent="2" name="instructions_timing4" type="description" xml:space="preserve">
+
+(Нажмите 'Применить' для сохранения настроек.)</_param>
+</page>
+
+<page name='options' _gui-text='Параметры'>
+
+<_param name="instructions_options6" type="description" appearance="header">Расширенные опции:</_param>
+<param indent="1" name="autoRotate" type="boolean" _gui-text="Автоповорот страницы при печати">true</param>	
+<param indent="1" name="constSpeed" type="boolean" _gui-text="Использовать постоянную скорость, когда ручка опущена">false</param>	
+<param indent="1" name="reportTime" type="boolean" _gui-text="Отчет о времени, прошедшем после каждого рисования">false</param> 
+<param indent="1" name="logSerial" type="boolean" _gui-text="Вести отчет связи с COM портом">false</param> 
+
+<param indent="1" name="smoothness" type="float" min=".1" max="100" _gui-text="Сглаживание кривой (по умолчанию: 10.0):">10.0</param>
+<param indent="1" name="cornering" type="float" min=".1" max="100" _gui-text="Коэффициент скорости прохождения поворотов (по умолчанию: 10.0):">10.0</param>
+
+<_param indent="2"  name="instructions_options3" type="description" xml:space="preserve">
+
+(Нажмите 'Применить' для сохранения настроек.)</_param>
+</page>
+
+<page name="manual" _gui-text="Управление">
+<_param name="instructions_manual" type="description" appearance="header">ChilMel Ручное управление</_param>
+<_param indent="1" name="instructions_manual" type="description"  >
+Вы можете использовать эту вкладку для отправки команд на
+ChilMel: Пермещение каретки, подъем или опускание
+ручки или отправка любой другой команды.
+</_param>
+<param name="manualType" type="optiongroup" appearance="minimal"
+_gui-text="               Command: ">
+<_option value="none"           >- Выбрать -</_option>
+<_option value="raise-pen"      >Поднять ручку</_option>
+<_option value="lower-pen"      >Опустить ручку</_option>
+<_option value="walk-x-motor"   >Движение по оси X</_option>
+<_option value="walk-y-motor"   >Движение по оси Y</_option>
+<_option value="version-check"  >Проверка версии прошивки</_option>
+<_option value="strip-data"     >Извлечь данные для плоттера из файла</_option>
+<_option value="grbl-command"   >Ввести команду</_option>
+</param>
+
+<param name="grblCommand" type="string" _gui-text="GRBL команда:">$$</param>
+
+<param name="WalkDistance" type="float" min="-11" max="11" _gui-text="Пройти расстояние в дюймах:">1.00</param>
+
+<_param  indent="1" name="instructions_manual2" type="description" >
+Примечание. Команды ручного движения перемещают двигатели
+по командам, независимо от текущего положения. Движение слишком далеко или 
+в неправильном направлении может привести к тому, что СhilMel упрется в концы хода.
+</_param>
+<_param  indent="2" name="instructions_manual3" type="description" xml:space="preserve">
+Нажмите 'Применить' для выполнения команды.
+</_param>
+</page>
+
+<page name="layers" _gui-text="Слои">
+<_param name="instructions_layer" type="description"  appearance="header">Распечатать отдельный слой(и) </_param>
+<_param  indent="1" name="instructions_layer2" type="description" >
+Обычно, плоттер строит пути из всех слоев. Но можно выбрать для печати один слой или группу слоев.
+слоев, например, для нанесения только одного цвета чернил.
+
+По нажатию на «Применить» будут печататься только те слои, которые выделены в текством поле
+
+</_param>
+<param indent="2" name="layerNumber" type="int" min="0" max="1000" _gui-text="Чертить только слои, начинающиеся с: ">1</param>
+</page>			
+
+<page name="Help" _gui-text="Справка">
+<_param name="instructions_general" type="description"
+xml:space="preserve">
+Inkscape расширение для управления графопостроителем 
+без использования сторонних программ.
+
+Мельников Владислав Андреевич 2022
+</_param>
+<param name="fileOutput" type="boolean" gui-hidden="true">true</param>
+</page>
+</param>
+<effect needs-live-preview="false" needs-document="no">
+<object-type>all</object-type>
+<effects-menu>
+<submenu _name="ChilMel"/>
+</effects-menu>
+</effect>
+
+<script>
+<command reldir="extensions" interpreter="python">chilmel.py</command>
+</script>
+
+</inkscape-extension>
